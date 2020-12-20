@@ -1,0 +1,59 @@
+swagger: "2.0"
+info:
+  description: "Serviço que consulta indicador de nivel de pobreza por pais."
+  version: "1.0.0"
+  title: "Consulta Indicadores Pobreza Banco Mundial"
+  termsOfService: "http://swagger.io/terms/"
+host: "indicadores.bb.io"
+basePath: "/indicador"
+tags:
+- name: "indicador"
+schemes:
+- "https"
+- "http"
+paths:
+  /{country}/{indicator}:
+    get:
+      tags:
+      - "indicador"
+      summary: "Buscar indicador de nivel de pobreza de um pais"
+      description: "Retorna uma lista de inidcadores"
+      operationId: "getIndicador"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "country"
+        in: "path"
+        description: "codigo pais"
+        required: true
+        type: "string"
+      - name: "indicator"
+        in: "path"
+        description: "codigo indicador"
+        required: true
+        type: "string"
+      - name: "format"
+        in: "query"
+        description: "formato busca. Informar sempre json"
+        required: true
+        type: "string"  
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ItemRelatorio"
+        "400":
+          description: "Dados invalidos"
+definitions:
+  ItemRelatorio:
+    type: "object"
+    properties:
+      descricaoPercentual:
+        type: "string"
+      pais:
+        type: "string"
+      ano:
+        type: "string"
+      
